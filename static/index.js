@@ -11,8 +11,7 @@ function onClickedSearchBtn() {
     searchForm.submit();
 }
 
-// proxyUrl = "https://cors-anywhere.herokuapp.com";
-baseUrl = `http://localhost:50004`;
+baseUrl = `http://10.0.0.70:50004`;
 
 searchForm = document.getElementById("param-form");
 searchForm.addEventListener("submit", (event) => {

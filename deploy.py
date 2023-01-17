@@ -32,4 +32,4 @@ def do_crawling():
     return response
 
 if __name__ == "__main__":
-  app.run(port=50004, debug=False)
+  app.run(host='0.0.0.0', port=50004, debug=False)
