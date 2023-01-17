@@ -11,21 +11,52 @@
         <header>
             <h1>코고 경품 구매 검색 도우미</h1>
             <!-- URL 입력 -->
-            <form action="" method="get" id="param-form">
+            <form
+                action="https://cors-anywhere.herokuapp.com/http://localhost:50004/crawl"
+                method="get"
+                id="param-form"
+                target="blankIf"
+            >
                 <label>
                     <span class="label-text">상한가</span>
-                    <input type="number" name="" id="" min="0" value="0" />
+                    <input
+                        type="number"
+                        name="max_price"
+                        id=""
+                        min="0"
+                        value="0"
+                    />
                 </label>
                 <label>
                     <span class="label-text">하한가</span>
-                    <input type="number" name="" id="" min="0" value="0" />
+                    <input
+                        type="number"
+                        name="min_price"
+                        id=""
+                        min="0"
+                        value="0"
+                    />
                 </label>
                 <label>
                     <span class="label-text">조회할 페이지 수</span>
-                    <input type="number" name="" id="" min="0" value="0" />
+                    <input
+                        type="number"
+                        name="pagination"
+                        id=""
+                        min="0"
+                        value="0"
+                    />
                 </label>
-                <button type="submit">검색하기</button>
+                <button id="search-btn" type="submit" onclick="">
+                    검색하기
+                </button>
             </form>
+            <!-- <iframe
+                name="blankIf"
+                src=""
+                frameborder="0"
+                style="display: none"
+            ></iframe> -->
             <p id="page-description">
                 <span
                     >포인트 상한가, 하한가를 입력하여 몇 포인트로 어떤 상품을
