@@ -12,11 +12,7 @@ from bs4 import BeautifulSoup
 import os
 import csv
 
-def search_gift(max_price: int = -1, min_price: int = -1, limit_page: int = 999999999):
-  if max_price < min_price:
-    print('잘못된 입력입니다. 상한 가격은 하한 가격보다 크거나 같은 값이어야 합니다.')
-    return
-    
+def search_gift(max_price: int = -1, min_price: int = -1, limit_page: int = 999999999):    
   base_url = 'https://cogo.co.kr'
   pagination = 1
   result = dict()
@@ -67,7 +63,7 @@ def search_gift(max_price: int = -1, min_price: int = -1, limit_page: int = 9999
 
 
 def export_to_file(gift_list: list, filetype: str):
-    file_list = os.listdir('./etc')
+    file_list = os.listdir('./')
         
     saved_index = 0
     for i in range(len(file_list)):
@@ -83,7 +79,7 @@ def export_to_file(gift_list: list, filetype: str):
     elif filetype == 'csv':
       with open('search_result.csv', 'w', encoding='utf-8', newline='') as f:
         writer = csv.writer(f)
-        writer.writerow(['브랜드', '상품', '가격', '주소'])
+        writer.writerow(['브랜드', '상품명', '가격', '상품 URL'])
         for gift in gift_list:
            writer.writerow(gift.to_list())
 
@@ -92,11 +88,14 @@ def main():
   while True:
     price_list = list(map(lambda n: int(n), input('상한 가격과 하한 가격을 공백 구분하여 입력하세요\n>>> ').split()))
     if len(price_list) > 2:
-      print('상한 가격과 하한 가격만 입력할 수 있습니다. 다시 시도하세요.')
+      print('상한 가격과 하한 가격만 입력할 수 있습니다. 다시 시도하세요.\n')
     else:
+      if price_list[0] < price_list[1]:
+        print('잘못된 입력입니다. 상한 가격은 하한 가격보다 크거나 같은 값이어야 합니다.\n')
+        continue
       break
   
-  limit_page = input('검색할 최대 페이지 수를 입력하세요.\n아무 값도 입력하지 않거나 0 이하의 값을 입력하면, 모든 페이지를 검색합니다.\n>>> ')
+  limit_page = input('\n검색할 최대 페이지 수를 입력하세요.\n아무 값도 입력하지 않거나 0 이하의 값을 입력하면, 모든 페이지를 검색합니다.\n>>> ')
   if limit_page == '':
     limit_page = 999999999
   else:
@@ -111,10 +110,12 @@ def main():
     
   gift_list = sorted(gift_list, key=lambda gift: gift.price, reverse=True)      
     
-  print(f'{pagination}개의 페이지를 탐색했습니다.')  
+  print(f'\n{pagination}개의 페이지를 탐색했습니다.')  
   do_saving = input('검색 결과를 .txt 또는 .csv 파일로 저장하겠습니까?\n.txt 파일로 저장하려면 "txt"를, .csv 파일로 저장하려면 "csv"를 입력하세요.\n아무 것도 저장하지 않으려면 두 문자열을 제외한 아무 문자열이나 입력하세요.\n>>> ').lower()
   if do_saving == 'txt' or do_saving == 'csv':
     export_to_file(gift_list, filetype=do_saving)
+    
+  input('\n저장이 완료되었습니다.\n계속하려면 엔터 키를 누르십시오...')
             
   
 main()
