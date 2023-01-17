@@ -1,15 +1,13 @@
-from flask import Flask, request, Response, make_response
+from flask import Flask, request, Response
+from flask_cors import CORS
 import json
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/crawl', methods=['GET'])
-def do_crawling():
-  
-  if request.method == 'OPTIONS':
-    response = Response(200, headers={'Access-Control-Allow-Origin': '*'})
-  
-  elif request.method == 'GET':
+def do_crawling():  
+  if request.method == 'GET':
     query_params = request.args.to_dict()
     print(query_params)
     
@@ -30,9 +28,8 @@ def do_crawling():
         ]
       }
     )
-    response = Response(result, 200, headers={'Access-Control-Allow-Origin': '*'})
-  
-  return response
+    response = Response(result, 200)
+    return response
 
 if __name__ == "__main__":
   app.run(port=50004, debug=False)
