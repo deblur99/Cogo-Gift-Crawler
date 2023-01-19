@@ -14,10 +14,10 @@ class Gift:
     return int(self.price.replace(',', '').replace('P', ''))
     
   def to_string(self):
-    return f'{self.brand}, {self.price}, {self.product}, {self.url}'
+    return f'{self.brand}, {self.product}, {self.price}, {self.url}'
   
   def to_list(self):
-    return [self.brand, self.price, self.product, self.url]
+    return [self.brand, self.product, self.price, self.url]
   
 
 # test

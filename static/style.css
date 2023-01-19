@@ -16,27 +16,27 @@ header h1 {
     font-size: 4.2vw;
 }
 
-header form#param-form {
+header div#param-form {
     display: flex;
     flex-direction: column;
     max-width: 200px;
 }
 
-header form#param-form label {
+header div#param-form label {
     display: flex;
     justify-content: space-between;
     padding: 8px 0;
 }
 
-header form#param-form label:nth-child(3) {
+header div#param-form label:nth-child(3) {
     margin-bottom: 10px;
 }
 
-header form#param-form input {
+header div#param-form input {
     max-width: 30%;
 }
 
-header form#param-form button {
+header div#param-form button {
     height: 1.6rem;
     font-size: 14px;
     border: 0.2px solid #0ab28e;
@@ -45,12 +45,12 @@ header form#param-form button {
     color: #eeeeee;
 }
 
-header form#param-form button:hover {
+header div#param-form button:hover {
     cursor: grab;
     background-color: #a2dfd2;
 }
 
-header form#param-form button:active {
+header div#param-form button:active {
     background-color: #0ab28e;
     transition: cubic-bezier(0.165, 0.84, 0.44, 1);
 }

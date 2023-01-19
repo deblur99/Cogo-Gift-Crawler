@@ -7,36 +7,26 @@
 + 서버에서 처리중일 때, 버튼 비활성화 및 검색하기 텍스트 부분 바꾸기 (처리중... 으로)
 */
 
-function onClickedSearchBtn() {
-    searchForm.submit();
-}
+baseUrl = `https://cogo-gift-crawler-server.vercel.app/crawl`;
 
-baseUrl = `http://10.0.0.70:50004`;
+maxPriceDOM = document.getElementById("max_price");
+minPriceDOM = document.getElementById("min_price");
+paginationDOM = document.getElementById("pagination");
 
-searchForm = document.getElementById("param-form");
-searchForm.addEventListener("submit", (event) => {
-    // 버튼 비활성화 및 문구 변경
+searchBtn = document.getElementById("search-btn");
+searchBtn.addEventListener("click", onClickedSearchBtn);
 
-    event.preventDefault();
-    fetch(event.target.action, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-        },
-    })
-        .then((res) => {
-            // 응답 데이터 반영하기
-            console.log(JSON.stringify(res));
+async function onClickedSearchBtn() {
+    console.log("clicked");
+
+    await fetch(
+        `${baseUrl}?max_price=${maxPriceDOM.value}&min_price=${minPriceDOM.value}&pagination=${paginationDOM.value}`
+    )
+        .then((value) => {
+            console.log("200");
+            console.log(JSON.stringify(value));
         })
         .catch((e) => {
-            window.alert(
-                `서버 요청 중 문제가 발생했습니다.\n${JSON.stringify(e)}`
-            );
-        })
-        .finally(() => {
-            // 버튼 활성화 및 문구 재변경
+            console.log(JSON.stringify(e));
         });
-});
-
-// searchBtn = document.getElementById("search-btn");
-// searchBtn.addEventListener("click", onClickedSearchBtn);
+}

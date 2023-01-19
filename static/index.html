@@ -11,17 +11,13 @@
         <header>
             <h1>코고 경품 구매 검색 도우미</h1>
             <!-- URL 입력 -->
-            <form
-                action="http://220.149.242.12:50004/crawl"
-                method="get"
-                id="param-form"
-            >
+            <div id="param-form">
                 <label>
                     <span class="label-text">상한가</span>
                     <input
                         type="number"
                         name="max_price"
-                        id=""
+                        id="max_price"
                         min="0"
                         value="0"
                     />
@@ -31,7 +27,7 @@
                     <input
                         type="number"
                         name="min_price"
-                        id=""
+                        id="min_price"
                         min="0"
                         value="0"
                     />
@@ -41,15 +37,13 @@
                     <input
                         type="number"
                         name="pagination"
-                        id=""
+                        id="pagination"
                         min="0"
                         value="0"
                     />
                 </label>
-                <button id="search-btn" type="submit" onclick="">
-                    검색하기
-                </button>
-            </form>
+                <button id="search-btn">검색하기</button>
+            </div>
             <p id="page-description">
                 <span
                     >포인트 상한가, 하한가를 입력하여 몇 포인트로 어떤 상품을

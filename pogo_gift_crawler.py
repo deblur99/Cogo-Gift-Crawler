@@ -1,3 +1,6 @@
+# format
+# [['투썸플레이스', '아이스박스', '15,000P', 'https://cogo.co.kr/store_detail/29'], ['스타벅스', '아이스 아메리카노 Tall', '4,500P', ]]
+
 # parameters
 # txt, csv
 # 상한가
@@ -60,6 +63,7 @@ def search_gift(max_price: int = -1, min_price: int = -1, limit_page: int = 9999
     gift_list = list(filter(lambda n: n.get_price() >= min_price, gift_list))
   
   return gift_list, pagination
+  
 
 
 def export_to_file(gift_list: list, filetype: str):
@@ -81,7 +85,7 @@ def export_to_file(gift_list: list, filetype: str):
         writer = csv.writer(f)
         writer.writerow(['브랜드', '상품명', '가격', '상품 URL'])
         for gift in gift_list:
-           writer.writerow(gift.to_list())
+           writer.writerow(gift)
 
 
 def main():  
@@ -108,7 +112,19 @@ def main():
   elif len(price_list) == 0:
     gift_list, pagination = search_gift(limit_page=limit_page)
     
-  gift_list = sorted(gift_list, key=lambda gift: gift.price, reverse=True)      
+  gift_list = sorted(gift_list, key=lambda gift: gift.price, reverse=True)        
+  temp = list()
+  for gift in gift_list:
+    temp.append(gift.to_list())
+    
+  gift_list = temp
+    
+  print(
+    {
+      'pagination': pagination,
+      'gift_list': gift_list
+    }
+  )
     
   print(f'\n{pagination}개의 페이지를 탐색했습니다.')  
   do_saving = input('검색 결과를 .txt 또는 .csv 파일로 저장하겠습니까?\n.txt 파일로 저장하려면 "txt"를, .csv 파일로 저장하려면 "csv"를 입력하세요.\n아무 것도 저장하지 않으려면 두 문자열을 제외한 아무 문자열이나 입력하세요.\n>>> ').lower()
