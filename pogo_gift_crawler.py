@@ -20,13 +20,16 @@ def search_gift(max_price: int = -1, min_price: int = -1, limit_page: int = 9999
   pagination = 1
   result = dict()
   gift_list = list()
+  
+  if (limit_page <= 0):
+    limit_page = 999999999
 
   # while 문 탈출 조건 : ul 아래에 태그가 아무것도 없을 때
   res = requests.get(f'{base_url}/store?page={pagination}')
   soup = BeautifulSoup(res.text, 'html.parser')
   items = soup.select('ul.store_ul > li')  
   
-  while len(items) != 0 and pagination < limit_page:        
+  while len(items) != 0 and pagination <= limit_page:        
     brand_list = soup.find_all('p', 'fw_700')
     brand_list = list(map(lambda n: n.text, brand_list))
     result['brand'] = brand_list
@@ -62,7 +65,7 @@ def search_gift(max_price: int = -1, min_price: int = -1, limit_page: int = 9999
   elif min_price > 0:
     gift_list = list(filter(lambda n: n.get_price() >= min_price, gift_list))
   
-  return gift_list, pagination
+  return gift_list, pagination - 1  # 빠져나올 때 pagination 값이 실제 검색한 페이지 수보다 1 높으므로 1 감소시킨다.
   
 
 
